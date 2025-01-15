@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+    <title>Testing MyApp</title>
+</head>
+<body>
+    <div class="container-wrapper">
+        <div class="containerGlow"></div>
+        <div class="containerGlow2"></div>
+        <div class="glowBox"></div>
+        <div class="container">
+            <h1 class="welcome">Welcome</h1>
+            <form id="myForm" action="index.php" method="get">
+                <h1 class="form-text">First Name </h1>
+                <input type="text" name="firstname" maxlength="25"><br>
+                <h1 class="form-text">City</h1> 
+                <input type="text" name="city" maxlength="30"><br>
+                <input type="submit" value="Submit">
+            </form>
+            <p id="result"></p>
+        </div>
+    </div>
+    <script>
+        const form = document.getElementById('myForm');
+        const resultParagraph = document.getElementById('result');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const firstName = form.firstname.value;
+            const city = form.city.value;
+
+            function countVowelsAndConsonants(str) {
+                const vowels = 'aáeěéiíoóuúůAÁEÉĚIÍOÓUÚŮ';
+                let vowelCount = 0;
+                let consonantCount = 0;
+
+                let regex = /\d/;
+                let regex2 = /^[!@#$%^& -*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
+
+                let cont = false;
+                let isExecutable = false;
+
+                if (regex.test(firstName) || regex2.test(city) || regex.test(city) || regex2.test(firstName)) {
+                    window.alert("Please don't use special symbols and numbers for the input. If the inputs are empty fill them in.");
+                } else if (firstName === " " || city === " "){
+                    window.alert("Please fill in the inputs.");
+                } else {
+                    cont = true;
+                    isExecutable = true;
+                }
+                
+                if (cont = true){
+                    for (let i = 0; i < str.length; i++) {
+                        if (vowels.includes(str[i])) {
+                            vowelCount++;
+                        } else {
+                            consonantCount++;
+                        }
+                    }
+                }
+
+                return { vowelCount, consonantCount, isExecutable };
+            }
+
+            const firstNameCounts = countVowelsAndConsonants(firstName);
+            const cityCounts = countVowelsAndConsonants(city);
+            const isExec = firstNameCounts.isExecutable;
+
+            if (isExec === true) {
+                const result = `Welcome <span class="highlight">${firstName}</span> from <span class="highlight">${city}</span>. There are <span class="highlight">${firstNameCounts.vowelCount}</span> vowels in your first name and <span class="highlight">${firstNameCounts.consonantCount}</span> consonants in your first name, and there are <span class="highlight">${cityCounts.vowelCount}</span> vowels in your city and <span class="highlight">${cityCounts.consonantCount}</span> consonants in your city.`;
+
+                resultParagraph.innerHTML = result;
+            }
+        });
+    </script>
+    <style>
+        p{
+            padding: 2rem;
+        }
+        h1 {
+            font-family: "Lexend", serif;
+            text-align: center;
+            font-size: 20px;
+            background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(0,227,255,1) 49%, rgba(255,255,255,1) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .welcome{
+            padding-top: 10px;
+            transform: scale(2);
+        }
+        .form-text{
+            padding-top: 1%;
+            padding-bottom: 1%;
+        }
+        form {
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input[type="text"] {
+            position: relative;
+            width: 90%;
+            padding: 0.5rem;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+            text-align: center;
+            transition: box-shadow 0.5s ease, transform 0.5s ease; /* Add the properties you want to transition */
+        }
+
+        input[type="text"]:focus{
+            box-shadow: 0px 0px 10px rgba(0,227,255,1);
+            transform: scale(1.05);
+        }
+
+        input[type="submit"] {
+            position: relative;
+            top: 0.5rem;
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+            background-color: #00e3ff;
+            color: black;
+            cursor: pointer;
+            transition: 0.5s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: transparent;
+            box-shadow: 0px 0px 5px #00b2cc;
+            color: white;
+        }
+        body {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-content: center;
+            background: linear-gradient(300deg,#343434,#000000);
+            background-size: 150% 150%;
+            animation: gradient-animation 5s ease infinite;
+        }
+
+        .container-wrapper {
+            position: relative;
+            width: 23rem;
+            height: 40rem;
+            border-radius: 22px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            top: 7rem;
+        }
+
+        .container {
+            position: relative;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            background: linear-gradient(300deg,#000000,#121212, #1a1a1a);
+            background-size: 150% 150%;
+            animation: gradient-animation 5s ease infinite;
+            justify-content: space-between;
+            color: white;
+            width: 98.5%;
+            height: 98.5%;
+            border-radius: 20px;
+            z-index: 1;
+        }
+
+        .containerGlow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(0,227,255,1) 49%, rgba(255,255,255,1) 100%);
+            width: 10rem;
+            height: 70rem;
+            border-radius: 50%;
+            z-index: 0;
+            animation: spin 20s linear infinite;
+            box-shadow: 0px 0px 100px white;
+        }
+        .containerGlow2 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(0,227,255,1) 49%, rgba(255,255,255,1) 100%);
+            width: 70rem;
+            height: 10rem;
+            border-radius: 50%;
+            z-index: 0;
+            animation: spin2 20s linear infinite;
+            box-shadow: 0px 0px 100px white;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+        @keyframes spin2 {
+            from {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+        @keyframes gradient-animation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .highlight{
+            color: rgba(0,227,255,1);
+            text-decoration: underline;
+        }
+    </style>
+</body>
+</html>
