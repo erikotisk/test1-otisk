@@ -45,9 +45,27 @@
                 let cont = false;
                 let isExecutable = false;
 
-                if (regex.test(firstName) || regex2.test(city) || regex.test(city) || regex2.test(firstName)) {
-                    window.alert("Please don't use special symbols and numbers for the input. If the inputs are empty fill them in.");
-                } else if (firstName === " " || city === " "){
+                let invalidInput = false;
+
+                for (let i = 0; i < firstName.length; i++) {
+                    const char = firstName[i];
+                    if (regex.test(char) || regex2.test(char)) {
+                        invalidInput = true;
+                        break;
+                    }
+                }
+
+                for (let i = 0; i < city.length; i++) {
+                    const char = city[i];
+                    if (regex.test(char) || regex2.test(char)) {
+                        invalidInput = true;
+                        break;
+                    }
+                }
+
+                if (invalidInput) {
+                    window.alert("Please don't use special symbols and numbers for the input. If the inputs are empty, fill them in.");
+                } else if (firstName.trim() === "" || city.trim() === "") {
                     window.alert("Please fill in the inputs.");
                 } else {
                     cont = true;
